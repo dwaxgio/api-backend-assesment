@@ -3,9 +3,18 @@ const sequelize = require("../config/db");
 const Schedule = require("./schedule");
 
 const Activity = sequelize.define("Activity", {
-  name: DataTypes.STRING,
-  start_date: DataTypes.DATE,
-  end_date: DataTypes.DATE,
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  start_date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  end_date: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
   scheduleId: {
     type: DataTypes.INTEGER,
     references: {
