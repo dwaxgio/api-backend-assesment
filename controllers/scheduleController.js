@@ -26,7 +26,7 @@ exports.getScheduleWithActivities = async (req, res) => {
       where: { id: req.params.id, userId: req.user.id },
       include: {
         model: Activity,
-        as: 'activities',  
+        as: "activities",
       },
     });
     if (!schedule) return res.status(404).json({ error: "Schedule not found" });
@@ -49,17 +49,39 @@ exports.addActivityToSchedule = async (req, res) => {
       return res.status(404).json({ error: "Schedule not found" });
     }
 
-    const { name, start_date, end_date } = req.body;
+    const activities = req.body;
 
-    // Create a new activity and asociate it with the Schedule
-    const newActivity = await Activity.create({
-      name,
-      start_date,
-      end_date,
-      scheduleId: schedule.id, // Asociate activity with Schedule
-    });
+    if (!Array.isArray(activities)) {
+      return res
+        .status(400)
+        .json({ error: "Request body should be an array of activities" });
+    }
 
-    res.status(201).json({ message: "Activity added", data: newActivity });
+    const createdActivities = [];
+
+    // Iterate each activity and create a new one
+    for (const activityData of activities) {
+      const { name, start_date, end_date } = activityData;
+
+      if (!name || !start_date || !end_date) {
+        return res
+          .status(400)
+          .json({ error: "Missing required fields for activity" });
+      }
+
+      const newActivity = await Activity.create({
+        name,
+        start_date,
+        end_date,
+        scheduleId: schedule.id,
+      });
+
+      createdActivities.push(newActivity);
+    }
+
+    res
+      .status(201)
+      .json({ message: "Activities added", data: createdActivities });
   } catch (error) {
     console.error(error);
     res.status(400).json({ error: "Failed to add activity" });
