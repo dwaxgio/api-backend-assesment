@@ -24,11 +24,15 @@ exports.getScheduleWithActivities = async (req, res) => {
   try {
     const schedule = await Schedule.findOne({
       where: { id: req.params.id, userId: req.user.id },
-      include: Activity,
+      include: {
+        model: Activity,
+        as: 'activities',  
+      },
     });
     if (!schedule) return res.status(404).json({ error: "Schedule not found" });
     res.status(200).json(schedule);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Error fetching schedule" });
   }
 };

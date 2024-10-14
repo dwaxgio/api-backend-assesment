@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/db");
-const Schedule = require("./schedule");
 
 const Activity = sequelize.define("Activity", {
   name: {
@@ -18,13 +17,10 @@ const Activity = sequelize.define("Activity", {
   scheduleId: {
     type: DataTypes.INTEGER,
     references: {
-      model: Schedule,
+      model: "Schedules",
       key: "id",
     },
   },
 });
-
-Schedule.hasMany(Activity);
-Activity.belongsTo(Schedule);
 
 module.exports = Activity;

@@ -1,10 +1,11 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const sequelize = require("./config/db");
+const { User } = require("./config/relationships");
 const scheduleRoutes = require("./routes/scheduleRoutes");
 const loginRoute = require("./routes/loginRoute");
 const morgan = require("morgan");
-const User = require("./models/user");
+// const User = require("./models/user");
 
 dotenv.config();
 
