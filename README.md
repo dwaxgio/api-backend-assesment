@@ -11,7 +11,6 @@ Before running the project, ensure you have the following installed on your mach
 - [Node.js](https://nodejs.org/) (v14 or higher)
 - [PostgreSQL](https://www.postgresql.org/)
 - [Git](https://git-scm.com/)
-- [Docker](https://www.docker.com/) (optional if you prefer to use Docker)
 
 ## Installation and Setup
 
