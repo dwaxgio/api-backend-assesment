@@ -5,7 +5,6 @@ const { User } = require("./config/relationships");
 const scheduleRoutes = require("./routes/scheduleRoutes");
 const loginRoute = require("./routes/loginRoute");
 const morgan = require("morgan");
-// const User = require("./models/user");
 
 dotenv.config();
 
